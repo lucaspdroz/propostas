@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proposta Comercial</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
     <style>
         :root {
             --bg: #000;
@@ -267,6 +267,15 @@
             gap: 12px;
         }
 
+        .pix-note {
+            font-size: .75rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.5;
+            opacity: .8;
+            max-width: 260px;
+        }
+
         .pix-qrcode {
             width: 220px;
             aspect-ratio: 1;
@@ -479,7 +488,6 @@
             <section class="card">
 
                 <div class="payment">
-
                     <div class="payment-info">
                         <h2>Pagamento</h2>
                         <p>
@@ -498,7 +506,6 @@
                     </div>
 
                     <div class="pix-box">
-
                         <div class="pix-qrcode">
                             <img src="pix.png" alt="QR Code PIX">
                         </div>
@@ -506,6 +513,11 @@
                         <span class="pix-caption">
                             Escaneie com o aplicativo do seu banco.
                         </span>
+
+                        <small class="pix-note">
+                            * Outros meios de pagamento podem incluir taxas adicionais.
+                        </small>
+
                     </div>
                 </div>
             </section>
@@ -516,7 +528,7 @@
                 📄 Baixar Proposta em PDF
             </button>
         </div> -->
-        <script>
+        <!-- <script>
             const button = document.getElementById("download-pdf");
 
             button.addEventListener("click", () => {
@@ -563,7 +575,7 @@
                     });
 
             });
-        </script>
+        </script> -->
     </div>
 </body>
 
