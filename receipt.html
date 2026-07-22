@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg: #000;
+            --surface: #000;
+            --surface-2: #1f2937;
+            --border: rgba(255, 255, 255, .2);
+
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+
+            --primary: #38bdf8;
+            --success: #22c55e;
+
+            --shadow: 0 12px 40px rgba(0, 0, 0, .45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 48px 20px;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: var(--text);
+        }
+
+        a {
+            color: var(--primary);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 255, 255, .03);
+        }
+
+        th {
+            padding: 18px 24px;
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-size: .82rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        tbody tr {
+            transition: .2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(56, 189, 248, .05);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        th:last-child,
+        td:last-child {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .total {
+            background: rgba(255, 255, 255, .03);
+            font-weight: 700;
+        }
+
+        .notes {
+            padding: 26px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .notes h3 {
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        .notes ul {
+            padding-left: 20px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .notes li::marker {
+            color: var(--primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: .3rem .75rem;
+            background: rgba(0, 0, 0, .12);
+            color: var(--surface);
+            background-color: var(--primary);
+            border: 1px solid rgba(0, 0, 0, .25);
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+
+            padding: .28rem .75rem;
+
+            border-radius: 999px;
+
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+
+            color: var(--success);
+            background: rgba(130, 253, 15, 0.12);
+            border: 1px solid rgba(119, 238, 23, 0.28);
+
+            margin-left: .5rem;
+        }
+
+        .badge-warning {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+
+            padding: .28rem .75rem;
+
+            border-radius: 999px;
+
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+
+            color: #fbbf24;
+            background: rgba(251, 191, 36, .12);
+            border: 1px solid rgba(251, 191, 36, .28);
+
+            margin-left: .5rem;
+        }
+
+        .final {
+            color: var(--success);
+        }
+
+        @media (max-width:720px) {
+
+            table,
+            thead,
+            tbody,
+            tr,
+            th,
+            td {
+                display: block;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tr {
+                padding: 18px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+                padding: 10px 0;
+            }
+
+            td::before {
+                content: attr(data-label);
+                color: var(--text-muted);
+                font-weight: 600;
+            }
+
+        }
+
+        .payment {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 32px;
+            flex-wrap: wrap;
+        }
+
+        .payment-info {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .payment-info h2 {
+            margin-bottom: 12px;
+        }
+
+        .payment-info p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .payment-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 18px;
+        }
+
+        .pix-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pix-qrcode {
+            width: 220px;
+            aspect-ratio: 1;
+            background: #fff;
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pix-qrcode img {
+            width: 100%;
+            height: auto;
+        }
+
+        .pix-caption {
+            font-size: .85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @media (max-width:720px) {
+
+            .payment {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .payment-info {
+                min-width: unset;
+            }
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 24px;
+        }
+
+        #download-pdf {
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 22px;
+
+            font-size: .95rem;
+            font-weight: 600;
+
+            color: #000;
+            background: var(--primary);
+
+            transition: .25s;
+        }
+
+        #download-pdf:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(56, 189, 248, .35);
+        }
+
+        @media print {
+            .actions {
+                display: none;
+            }
+        }
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .card {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .actions {
+                display: none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pdf">
+        <div class="container">
+            <h1>Proposta Comercial</h1>
+            <p style="color:var(--text-muted); line-height:1.8;">
+                Landing Page profissional desenvolvida com foco em
+                <strong>SEO</strong>,
+                <strong>Performance</strong>,
+                <strong>Responsividade</strong> e
+                <strong>Experiência do Usuário</strong>.
+            </p>
+
+            <br>
+
+            <section class="card">
+                <div class="notes">
+                    <h2>Desenvolvimento</h2>
+                    <p>
+                        Desenvolvimento da Landing Page com foco em performance,
+                        SEO, responsividade e experiência do usuário.
+                    </p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Horas</th>
+                            <th>Valor/Hora</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Refinamento de SEO</td>
+                            <td>1h</td>
+                            <td>R$ 150,00</td>
+                            <td>R$ 150,00</td>
+                        </tr>
+
+                        <tr>
+                            <td>Consultoria técnica e estratégica</td>
+                            <td>1h</td>
+                            <td>R$ 150,00</td>
+                            <td>R$ 150,00</td>
+                        </tr>
+
+                        <tr>
+                            <td>Desenvolvimento da página</td>
+                            <td>3h</td>
+                            <td>R$ 150,00</td>
+                            <td>R$ 450,00</td>
+                        </tr>
+
+                        <tr class="total">
+                            <td><strong>Investimento Inicial</strong></td>
+                            <td><strong>5h</strong></td>
+                            <td></td>
+                            <td class="final"><strong>R$ 750,00</strong></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div class="notes">
+                    <h3>O plano inclui</h3>
+                    <ul>
+                        <li>Código-fonte de propriedade do cliente <a
+                                href="https://nath-fisio.vercel.app">nath-fisio.vercel.app</a></li>
+                    </ul>
+                    <br />
+                    <span class="badge-warning">DNS somente para demonstração, não corresponde ao produto final</span>
+                </div>
+            </section>
+            <section class="card">
+                <div class="notes">
+                    <h2>
+                        Plano de Manutenção
+                        <span class="badge">Opcional</span>
+                    </h2>
+
+                    <p style="margin-top:12px">
+                        Serviço mensal para manter o site atualizado, seguro e funcionando
+                        corretamente.
+                    </p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plano</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Manutenção Mensal</td>
+                            <td class="highlight"><span class="badge-warning">Somente a partir do 2º mês </span> R$
+                                75,00/mês</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="notes">
+                    <h3>O plano inclui</h3>
+                    <ul>
+                        <li>Até <strong>2 alterações</strong> por mês (ou até 3h de trabalho)</li>
+                        <li>Correções de eventuais problemas</li>
+                        <li>Monitoramento de disponibilidade (uptime)</li>
+                        <li>Observabilidade básica e diagnóstico de falhas</li>
+                        <li>Atualizações de conteúdo e pequenos ajustes visuais</li>
+                        <li>Código-fonte de propriedade do cliente</li>
+                        <li>Hospedagem, domínio e monitoramento contínuo passam a ser cobertos pelo plano de manutenção.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="card">
+
+                <div class="payment">
+
+                    <div class="payment-info">
+                        <h2>Pagamento</h2>
+                        <p>
+                            Para adquirir o seu projeto, basta realizar o pagamento via PIX
+                            utilizando o QR Code ao lado.
+                        </p>
+
+                        <div class="payment-value">
+                            R$ 750,00
+                        </div>
+
+                        <p>
+                            Após a confirmação do pagamento, <br /><br />
+                            <span class="badge-success">O projeto passará ser de sua propriedade.</span>
+                        </p>
+                    </div>
+
+                    <div class="pix-box">
+
+                        <div class="pix-qrcode">
+                            <img src="pix.png" alt="QR Code PIX">
+                        </div>
+
+                        <span class="pix-caption">
+                            Escaneie com o aplicativo do seu banco.
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- <div class="actions">
+            <button id="download-pdf">
+                📄 Baixar Proposta em PDF
+            </button>
+        </div> -->
+        <script>
+            const button = document.getElementById("download-pdf");
+
+            button.addEventListener("click", () => {
+
+                const element = document.getElementById("pdf"); // seu wrapper
+
+                const options = {
+                    margin: 0,
+                    filename: "Proposta-Comercial-Nathalia-Candido.pdf",
+
+                    image: {
+                        type: "jpeg",
+                        quality: 1
+                    },
+
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: "#000",
+                        scrollX: 0,
+                        scrollY: 0
+                    },
+
+                    jsPDF: {
+                        unit: "mm",
+                        format: "a4",
+                        orientation: "portrait"
+                    },
+
+                    pagebreak: {
+                        mode: ["css"]
+                    }
+                };
+
+                const actions = document.querySelector(".actions");
+                actions.style.display = "none";
+
+                html2pdf()
+                    .set(options)
+                    .from(element)
+                    .save()
+                    .then(() => {
+                        actions.style.display = "";
+                    });
+
+            });
+        </script>
+    </div>
+</body>
+
+</html>
